@@ -1,25 +1,29 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Navigation from './components/Navigation';
+import TaskScheduler from './examples/TaskScheduler/TaskScheduler';
+import WeatherApplication from './examples/WeatherApplication/WeatherApplication';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [currentPage, setCurrentPage] = useState('taskScheduler');
+
+    const renderPage = () => {
+        switch (currentPage) {
+            case 'taskScheduler':
+                return <TaskScheduler />;
+            case 'weatherApplication':
+                return <WeatherApplication />;
+            default:
+                return <TaskScheduler />;
+        }
+    };
+
+    return (
+        <div className="app">
+            <Navigation onNavigate={setCurrentPage} />
+            {renderPage()}
+        </div>
+    );
 }
 
 export default App;
